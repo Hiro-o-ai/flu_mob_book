@@ -2,81 +2,124 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
       title: 'Navigator',
-      home: HomeScreen(),
+      home: MainScreen(),
     ));
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text('Demo'),
-        ),
-        body: Center(child: SelectionButton()),
-      );
-}
-
-class SelectionButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      onPressed: () {
-        _navigateAndDeisplaySelection(context);
-      },
-      child: Text('オプション選択'),
-    );
-  }
-
-  Future<void> _navigateAndDeisplaySelection(BuildContext context) async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SelectionScreen()),
-    );
-
-    Scaffold.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(result),
-        ),
-      );
-  }
-}
-
-class SelectionScreen extends StatelessWidget {
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('選択して下さい'),
+        title: Text('Main Screen'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pop(context, '選択肢1');
-                },
-                child: Text('選択肢1'),
-              ),
+      body: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => DetailScreen(),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pop(context, '選択肢2');
-                },
-                child: Text('選択肢2'),
-              ),
-            ),
-          ],
+          );
+        },
+        child: Hero(
+          tag: 'imageHero',
+          child: Image.network('https://picsum.photos/250?image=9'),
         ),
       ),
     );
   }
 }
+
+class DetailScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Center(
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network('https://picsum.photos/250?image=9'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+// class HomeScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) => Scaffold(
+//         appBar: AppBar(
+//           title: Text('Demo'),
+//         ),
+//         body: Center(child: SelectionButton()),
+//       );
+// }
+
+// class SelectionButton extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return RaisedButton(
+//       onPressed: () {
+//         _navigateAndDeisplaySelection(context);
+//       },
+//       child: Text('オプション選択'),
+//     );
+//   }
+
+//   Future<void> _navigateAndDeisplaySelection(BuildContext context) async {
+//     final result = await Navigator.push(
+//       context,
+//       MaterialPageRoute(builder: (context) => SelectionScreen()),
+//     );
+
+//     Scaffold.of(context)
+//       ..removeCurrentSnackBar()
+//       ..showSnackBar(
+//         SnackBar(
+//           content: Text(result),
+//         ),
+//       );
+//   }
+// }
+
+// class SelectionScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('選択して下さい'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             Padding(
+//               padding: EdgeInsets.all(8.0),
+//               child: RaisedButton(
+//                 onPressed: () {
+//                   Navigator.pop(context, '選択肢1');
+//                 },
+//                 child: Text('選択肢1'),
+//               ),
+//             ),
+//             Padding(
+//               padding: EdgeInsets.all(8.0),
+//               child: RaisedButton(
+//                 onPressed: () {
+//                   Navigator.pop(context, '選択肢2');
+//                 },
+//                 child: Text('選択肢2'),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 // class MyApp extends StatelessWidget {
 //   // This widget is the root of your application.
 //   @override
