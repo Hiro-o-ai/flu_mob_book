@@ -1,53 +1,99 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(
-      title: 'Navigator',
-      home: MainScreen(),
-    ));
-
-class MainScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Main Screen'),
-      ),
-      body: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => DetailScreen(),
-            ),
-          );
-        },
-        child: Hero(
-          tag: 'imageHero',
-          child: Image.network('https://picsum.photos/250?image=9'),
-        ),
-      ),
-    );
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Center(
-          child: Hero(
-            tag: 'imageHero',
-            child: Image.network('https://picsum.photos/250?image=9'),
+void main() => runApp(
+      MaterialApp(
+        title: 'Navigator',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('tapbox'),
+          ),
+          body: Center(
+            child: TapBoxA(),
           ),
         ),
       ),
     );
+
+class TapBoxA extends StatefulWidget {
+  @override
+  _TapBoxAState createState() => _TapBoxAState();
+}
+
+class _TapBoxAState extends State<TapBoxA> {
+  bool _active = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _handleTap,
+      child: Container(
+        child: Center(
+          child: Text(
+            _active ? 'Active' : 'Inacttive',
+            style: TextStyle(
+              fontSize: 32.0,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        width: 200.0,
+        height: 200.0,
+        decoration: BoxDecoration(
+            color: _active ? Colors.lightGreen[700] : Colors.grey[600]),
+      ),
+    );
+  }
+
+  void _handleTap() {
+    setState(() {
+      _active = !_active;
+    });
   }
 }
+
+// class MainScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Main Screen'),
+//       ),
+//       body: GestureDetector(
+//         onTap: () {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder: (_) => DetailScreen(),
+//             ),
+//           );
+//         },
+//         child: Hero(
+//           tag: 'imageHero',
+//           child: Image.network('https://picsum.photos/250?image=9'),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class DetailScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: GestureDetector(
+//         onTap: () {
+//           Navigator.pop(context);
+//         },
+//         child: Center(
+//           child: Hero(
+//             tag: 'imageHero',
+//             child: Image.network('https://picsum.photos/250?image=9'),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 // class HomeScreen extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) => Scaffold(
